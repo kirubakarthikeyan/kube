@@ -18,7 +18,7 @@ services:
     environment:
       DATABASE_HOST: db
       DATABASE_USER_NAME: root
-      DATABASE_NAME: terrapilot_base
+      DATABASE_NAME: kube
       DATABASE_USER_PASSWORD: test#1234
       RAILS_ENV: development
   db:
@@ -27,7 +27,7 @@ services:
     volumes:
       - ".datastore/mysql-data:/var/lib/mysql"
     environment:
-      MYSQL_DATABASE: terrapilot_base
+      MYSQL_DATABASE: kube
       MYSQL_USER: root
       MYSQL_PASSWORD: test#1234
       MYSQL_ROOT_PASSWORD: test#1234
@@ -35,16 +35,16 @@ services:
       - "3306:3306"
   infragen:
     build:
-      context: /Users/wizard/work/terrapilot/infragen
-      dockerfile: /Users/wizard/work/terrapilot/infragen/Dockerfile
+      context: /Users/wizard/work/kube/infragen
+      dockerfile: /Users/wizard/work/kube/infragen/Dockerfile
     ports:
       - "7777:7777"
     depends_on:
       - db
   # pilot:
   #   build:
-  #     context: /Users/wizard/work/terrapilot/pilot
-  #     dockerfile: /Users/wizard/work/terrapilot/pilot/Dockerfile
+  #     context: /Users/wizard/work/kube/pilot
+  #     dockerfile: /Users/wizard/work/kube/pilot/Dockerfile
   #   ports:
   #     - "9999:9999"
   #   depends_on:
@@ -54,7 +54,7 @@ services:
     init: true
     environment:
       PMA_HOST: db
-      PMA_PMADB: terrapilot_base
+      PMA_PMADB: kube
       PMA_USER: root
       PMA_PASSWORD: test#1234
     ports:
