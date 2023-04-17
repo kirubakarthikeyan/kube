@@ -1,0 +1,12 @@
+concurrency: 5
+# staging:
+#   concurrency: 10
+# production:
+#   concurrency: 10
+queues:
+  # - The 'intensive' queue is configured using capsule in sidekiq.rb
+  - critical
+  - default
+  - low_priority
+
+# https://github.com/sidekiq-scheduler/sidekiq-scheduler
