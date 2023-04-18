@@ -6,8 +6,16 @@ class ApplicationController < ActionController::API
   end
 
   def health
-    if $redis.get("health_response_code")
-      head $redis.get("health_response_code").to_i
+    if $redis.get("simulate_health_failure")
+      head 500
+    else
+      head 200, content_type: "json"
+    end
+  end
+
+  def ready
+    if $redis.get("simulate_readiness_failure")
+      head 500
     else
       head 200, content_type: "json"
     end
@@ -18,7 +26,7 @@ class ApplicationController < ActionController::API
   end
 
   def increase_memory
-    1000.times.each do |time|
+    10000000.times.each do |time|
       $in_memory_data << $random_data
     end
     render json: "inserted"
@@ -38,8 +46,13 @@ class ApplicationController < ActionController::API
   end
 
   def simulate_health_failure
-    $redis.set("health_response_code", params[:response_code])
-    render json: "response code set"
+    $redis.set("simulate_health_failure", true)
+    render json: "OK"
+  end
+
+  def simulate_readiness_failure
+    $redis.set("simulate_readiness_failure", true)
+    render json: "OK"
   end
 
   protected

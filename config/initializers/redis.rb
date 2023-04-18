@@ -5,8 +5,11 @@ $redis_params = {
   reconnect_attempts: 1,
   host: Rails.application.credentials.dig(:redis, :host),
   port: Rails.application.credentials.dig(:redis, :port),
-  password: Rails.application.credentials.dig(:redis, :password)
 }
+
+if Rails.application.credentials.dig(:redis, :password).present?
+  $redis_params[:password] = Rails.application.credentials.dig(:redis, :password)
+end
 
 connection_pool_params = {size: 25, timeout: 0.1}
 

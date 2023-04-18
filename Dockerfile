@@ -19,3 +19,5 @@ COPY . /kube
 EXPOSE 3000
 
 CMD ["rails", "s", "-b", "0.0.0.0"]
+
+#https://snyk.io/blog/10-docker-image-security-best-practices/
