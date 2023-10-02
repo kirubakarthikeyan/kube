@@ -12,8 +12,6 @@ ENV RAILS_LOG_TO_STDOUT true
 COPY Gemfile /kube/
 COPY Gemfile.lock /kube/
 
-RUN bundle install
-
 COPY . /kube
 
 EXPOSE 3000
